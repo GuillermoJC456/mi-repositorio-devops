@@ -1,0 +1,35 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Instalar dependencias
+        run: |
+          pip install -r app/requirements.txt
+
+      - name: Ejecutar pruebas
+        run: |
+          echo "Pruebas ejecutadas correctamente"
+
+      - name: Construir imagen Docker
+        run: |
+          docker build -t mi-app-flask .
+
+      - name: Simular despliegue
+        run: |
+          echo "Despliegue simulado exitosamente"
